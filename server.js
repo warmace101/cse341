@@ -76,9 +76,18 @@ app.use('*', (req, res) => {
 });
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI)
+const mongoUri = process.env.MONGODB_URI;
+
+if (!mongoUri) {
+  console.error('ERROR: MONGODB_URI environment variable is not set!');
+  console.error('Please set MONGODB_URI in your environment variables or .env file');
+  process.exit(1);
+}
+
+console.log('Attempting to connect to MongoDB...');
+mongoose.connect(mongoUri)
   .then(() => {
-    console.log('Connected to MongoDB');
+    console.log('Connected to MongoDB successfully');
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
       console.log(`API Documentation available at http://localhost:${PORT}/api-docs`);
