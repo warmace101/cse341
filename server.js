@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+//Generates the swagger documentation
 const swaggerJsdoc = require('swagger-jsdoc');
+//Serves the interavtive UI @ /api-docs
 const swaggerUi = require('swagger-ui-express');
 require('dotenv').config();
 
