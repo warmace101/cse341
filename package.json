@@ -1,12 +1,21 @@
 {
-  "name": "webservices",
+  "name": "cse341-webservices",
   "version": "1.0.0",
-  "description": "",
+  "description": "CSE 341 Web Services - Multiple Projects",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "api",
+    "mongodb",
+    "express",
+    "rest"
+  ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "workspaces": [
+    "week1",
+    "week3-4"
+  ]
 }
