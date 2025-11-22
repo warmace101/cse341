@@ -1,0 +1,243 @@
+### Test Error Responses - Week 3-4 API
+### Make sure server is running: npm run dev
+
+@baseUrl = http://localhost:3000
+
+#########################################
+### TEST 400 ERRORS (Validation Errors)
+#########################################
+
+### 400 - Missing required fields
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "Incomplete Book"
+}
+
+###
+
+### 400 - Invalid data type (publishedYear should be integer)
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "Invalid Book",
+  "author": "Test Author",
+  "isbn": "123-456-789",
+  "publishedYear": "nineteen ninety five",
+  "genre": "Fiction",
+  "pages": 200,
+  "language": "English",
+  "publisher": "Test Publisher"
+}
+
+###
+
+### 400 - Invalid year (future year)
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "Future Book",
+  "author": "Time Traveler",
+  "isbn": "999-888-777",
+  "publishedYear": 3000,
+  "genre": "Sci-Fi",
+  "pages": 500,
+  "language": "English",
+  "publisher": "Future Press"
+}
+
+###
+
+### 400 - Negative pages
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "Broken Book",
+  "author": "Error Author",
+  "isbn": "111-222-333",
+  "publishedYear": 2020,
+  "genre": "Fiction",
+  "pages": -100,
+  "language": "English",
+  "publisher": "Bad Publisher"
+}
+
+###
+
+### 400 - Empty strings
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "",
+  "author": "",
+  "isbn": "",
+  "publishedYear": 2020,
+  "genre": "",
+  "pages": 100,
+  "language": "",
+  "publisher": ""
+}
+
+###
+
+### 400 - Invalid book ID format
+GET {{baseUrl}}/books/invalid-id-format
+
+###
+
+### 400 - Invalid ID for update
+PUT {{baseUrl}}/books/12345
+Content-Type: application/json
+
+{
+  "title": "Test",
+  "author": "Test",
+  "isbn": "123",
+  "publishedYear": 2020,
+  "genre": "Test",
+  "pages": 100,
+  "language": "English",
+  "publisher": "Test"
+}
+
+###
+
+### 400 - Invalid ID for delete
+DELETE {{baseUrl}}/books/not-a-valid-id
+
+###
+
+#########################################
+### TEST 404 ERRORS (Not Found)
+#########################################
+
+### 404 - Get non-existent book (valid ObjectId format but doesn't exist)
+GET {{baseUrl}}/books/673b1a2c3d4e5f6a7b8c9d0e
+
+###
+
+### 404 - Update non-existent book
+PUT {{baseUrl}}/books/673b1a2c3d4e5f6a7b8c9d0e
+Content-Type: application/json
+
+{
+  "title": "Non-existent Book",
+  "author": "Ghost Author",
+  "isbn": "000-000-000",
+  "publishedYear": 2020,
+  "genre": "Mystery",
+  "pages": 200,
+  "language": "English",
+  "publisher": "Ghost Press"
+}
+
+###
+
+### 404 - Delete non-existent book
+DELETE {{baseUrl}}/books/673b1a2c3d4e5f6a7b8c9d0e
+
+###
+
+#########################################
+### TEST AUTHOR VALIDATION ERRORS
+#########################################
+
+### 400 - Missing author fields
+POST {{baseUrl}}/authors
+Content-Type: application/json
+
+{
+  "firstName": "John"
+}
+
+###
+
+### 400 - Invalid birth year
+POST {{baseUrl}}/authors
+Content-Type: application/json
+
+{
+  "firstName": "Invalid",
+  "lastName": "Author",
+  "birthYear": 500,
+  "country": "Unknown"
+}
+
+###
+
+### 400 - Future birth year
+POST {{baseUrl}}/authors
+Content-Type: application/json
+
+{
+  "firstName": "Future",
+  "lastName": "Baby",
+  "birthYear": 2030,
+  "country": "Mars"
+}
+
+###
+
+### 400 - Empty strings in author
+POST {{baseUrl}}/authors
+Content-Type: application/json
+
+{
+  "firstName": "",
+  "lastName": "",
+  "birthYear": 1980,
+  "country": ""
+}
+
+###
+
+#########################################
+### SUCCESSFUL REQUESTS (for comparison)
+#########################################
+
+### 201 - Successful book creation
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "isbn": "978-0-7432-7356-5",
+  "publishedYear": 1925,
+  "genre": "Fiction",
+  "pages": 180,
+  "language": "English",
+  "publisher": "Scribner",
+  "description": "A classic American novel"
+}
+
+###
+
+### 200 - Get all books
+GET {{baseUrl}}/books
+
+###
+
+### 201 - Successful author creation
+POST {{baseUrl}}/authors
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Austen",
+  "birthYear": 1775,
+  "country": "England",
+  "biography": "English novelist"
+}
+
+###
+
+### 200 - Get all authors
+GET {{baseUrl}}/authors
+
+###

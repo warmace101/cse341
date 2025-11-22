@@ -24,8 +24,8 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `http://localhost:${PORT}`,
-        description: 'Development server',
+        url: process.env.RENDER_URL || `http://localhost:${PORT}`,
+        description: process.env.RENDER_URL ? 'Production server' : 'Development server',
       },
     ],
   },
@@ -55,15 +55,19 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Initialize database and start server
+// Start server first, then connect to database
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+  console.log(`API Documentation available at http://localhost:${PORT}/api-docs`);
+});
+
+// Initialize database connection
 mongodb.initDb((err) => {
   if (err) {
     console.log('Error connecting to database:', err);
+    console.log('Server is running but database connection failed. Check MONGODB_URI environment variable.');
   } else {
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-      console.log(`API Documentation available at http://localhost:${PORT}/api-docs`);
-    });
+    console.log('Successfully connected to MongoDB');
   }
 });
 
