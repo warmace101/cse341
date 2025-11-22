@@ -1,0 +1,13 @@
+version: 2
+services:
+  - type: web
+    name: week3-4-api
+    runtime: node
+    rootDir: week3-4
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: NODE_VERSION
+        value: 22.16.0
