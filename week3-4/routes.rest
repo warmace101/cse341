@@ -1,0 +1,158 @@
+### Test the API with REST Client Extension for VS Code
+### Make sure to start your server first: npm run dev
+
+### Variables
+@baseUrl = http://localhost:3000
+
+#########################################
+### BOOKS ENDPOINTS
+#########################################
+
+### Get all books
+GET {{baseUrl}}/books
+
+### Get a single book by ID (replace with actual ID from MongoDB)
+GET {{baseUrl}}/books/YOUR_BOOK_ID_HERE
+
+### Create a new book
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "isbn": "978-0-7432-7356-5",
+  "publishedYear": 1925,
+  "genre": "Fiction",
+  "pages": 180,
+  "language": "English",
+  "publisher": "Scribner",
+  "description": "A classic American novel set in the Jazz Age"
+}
+
+### Create another book
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "To Kill a Mockingbird",
+  "author": "Harper Lee",
+  "isbn": "978-0-06-112008-4",
+  "publishedYear": 1960,
+  "genre": "Fiction",
+  "pages": 324,
+  "language": "English",
+  "publisher": "J. B. Lippincott & Co.",
+  "description": "A novel about racial injustice in the Deep South"
+}
+
+### Update a book (replace with actual ID)
+PUT {{baseUrl}}/books/YOUR_BOOK_ID_HERE
+Content-Type: application/json
+
+{
+  "title": "The Great Gatsby - Revised Edition",
+  "author": "F. Scott Fitzgerald",
+  "isbn": "978-0-7432-7356-5",
+  "publishedYear": 1925,
+  "genre": "Classic Fiction",
+  "pages": 180,
+  "language": "English",
+  "publisher": "Scribner",
+  "description": "A classic American novel set in the Jazz Age - Revised"
+}
+
+### Delete a book (replace with actual ID)
+DELETE {{baseUrl}}/books/YOUR_BOOK_ID_HERE
+
+### Test validation - Missing required field
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "Incomplete Book",
+  "author": "Test Author"
+}
+
+### Test validation - Invalid year
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "Invalid Book",
+  "author": "Test Author",
+  "isbn": "123-456",
+  "publishedYear": 3000,
+  "genre": "Fiction",
+  "pages": 100,
+  "language": "English",
+  "publisher": "Test Publisher"
+}
+
+#########################################
+### AUTHORS ENDPOINTS
+#########################################
+
+### Get all authors
+GET {{baseUrl}}/authors
+
+### Get a single author by ID (replace with actual ID)
+GET {{baseUrl}}/authors/YOUR_AUTHOR_ID_HERE
+
+### Create a new author
+POST {{baseUrl}}/authors
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Austen",
+  "birthYear": 1775,
+  "country": "England",
+  "biography": "English novelist known for romantic fiction set among the landed gentry"
+}
+
+### Create another author
+POST {{baseUrl}}/authors
+Content-Type: application/json
+
+{
+  "firstName": "Mark",
+  "lastName": "Twain",
+  "birthYear": 1835,
+  "country": "United States",
+  "biography": "American writer and humorist known for The Adventures of Tom Sawyer"
+}
+
+### Update an author (replace with actual ID)
+PUT {{baseUrl}}/authors/YOUR_AUTHOR_ID_HERE
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Austen",
+  "birthYear": 1775,
+  "country": "England",
+  "biography": "English novelist known for her six major novels, including Pride and Prejudice"
+}
+
+### Delete an author (replace with actual ID)
+DELETE {{baseUrl}}/authors/YOUR_AUTHOR_ID_HERE
+
+### Test validation - Missing required field
+POST {{baseUrl}}/authors
+Content-Type: application/json
+
+{
+  "firstName": "Test",
+  "lastName": "Author"
+}
+
+### Test validation - Invalid ID format
+GET {{baseUrl}}/authors/invalid-id-format
+
+#########################################
+### API DOCUMENTATION
+#########################################
+
+### Open Swagger Documentation in browser
+### Navigate to: http://localhost:3000/api-docs
