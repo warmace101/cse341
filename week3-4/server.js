@@ -78,9 +78,12 @@ app.use('/auth', require('./routes/auth'));
 app.use('/books', require('./routes/books'));
 app.use('/authors', require('./routes/authors'));
 
+// Serve static HTML landing page
+app.use(express.static('public'));
+
 // Root route
 app.get('/', (req, res) => {
-  res.send('Week 3-4 Project API - Visit /api-docs for documentation');
+  res.sendFile(__dirname + '/index.html');
 });
 
 // Error handling middleware

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE 341 Week 3-4 Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f7f7f7;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .btn-secondary:hover {
+            background: #e8e8e8;
+            transform: translateY(-2px);
+        }
+        
+        .btn-github {
+            background: #24292e;
+            color: white;
+        }
+        
+        .btn-github:hover {
+            background: #1a1e21;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(36, 41, 46, 0.4);
+        }
+        
+        .features {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        .features h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .features ul {
+            list-style: none;
+        }
+        
+        .features li {
+            padding: 8px 0;
+            color: #666;
+        }
+        
+        .features li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .auth-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .auth-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 CSE 341 Project</h1>
+        <p class="subtitle">REST API with OAuth Authentication</p>
+        
+        <div class="links">
+            <a href="/api-docs" class="btn btn-primary">📖 View API Documentation</a>
+            <a href="/auth/github" class="btn btn-github">🔐 Login with GitHub</a>
+        </div>
+        
+        <div class="auth-section">
+            <h3>Authentication</h3>
+            <p style="color: #666; margin-bottom: 10px;">
+                This API supports both local authentication and GitHub OAuth.
+            </p>
+            <div class="links">
+                <a href="/api-docs/#/Authentication/post_auth_register" class="btn btn-secondary">Create Account</a>
+                <a href="/api-docs/#/Authentication/post_auth_login" class="btn btn-secondary">Login</a>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h2>Features</h2>
+            <ul>
+                <li>Complete CRUD operations for Books and Authors</li>
+                <li>OAuth authentication with GitHub</li>
+                <li>Local authentication with bcrypt password hashing</li>
+                <li>Session-based security</li>
+                <li>Protected routes requiring authentication</li>
+                <li>Comprehensive data validation</li>
+                <li>Interactive API documentation with Swagger</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center; color: #999; font-size: 0.9em;">
+            <p>Week 3-4 Project | CSE 341 Web Services</p>
+        </div>
+    </div>
+</body>
+</html>
