@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authorController = require('../controllers/authorController');
+const { isAuthenticated } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -108,8 +109,10 @@ router.get('/:id', authorController.getAuthorById);
  *         description: Validation error
  *       500:
  *         description: Server error
+ *     security:
+ *       - sessionAuth: []
  */
-router.post('/', authorController.createAuthor);
+router.post('/', isAuthenticated, authorController.createAuthor);
 
 /**
  * @swagger
@@ -139,8 +142,10 @@ router.post('/', authorController.createAuthor);
  *         description: Author not found
  *       500:
  *         description: Server error
+ *     security:
+ *       - sessionAuth: []
  */
-router.put('/:id', authorController.updateAuthor);
+router.put('/:id', isAuthenticated, authorController.updateAuthor);
 
 /**
  * @swagger
@@ -164,7 +169,9 @@ router.put('/:id', authorController.updateAuthor);
  *         description: Author not found
  *       500:
  *         description: Server error
+ *     security:
+ *       - sessionAuth: []
  */
-router.delete('/:id', authorController.deleteAuthor);
+router.delete('/:id', isAuthenticated, authorController.deleteAuthor);
 
 module.exports = router;

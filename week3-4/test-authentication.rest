@@ -1,0 +1,338 @@
+### Authentication Testing - Week 3-4 API
+### Make sure server is running: npm run dev
+
+@baseUrl = http://localhost:3000
+
+#########################################
+### AUTHENTICATION ENDPOINTS
+#########################################
+
+### Register a new user
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+###
+
+### Login with username and password
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "password": "password123"
+}
+
+###
+
+### Get current user info
+GET {{baseUrl}}/auth/user
+
+###
+
+### Logout
+POST {{baseUrl}}/auth/logout
+
+###
+
+### Try to register with existing username (should fail)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "email": "different@example.com",
+  "password": "password456"
+}
+
+###
+
+### Try to register with weak password (should fail - less than 6 chars)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "newuser",
+  "email": "new@example.com",
+  "password": "12345"
+}
+
+###
+
+### Try to register without email (should fail)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "baduser",
+  "password": "password123"
+}
+
+###
+
+### Try to login with wrong password (should fail)
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "password": "wrongpassword"
+}
+
+###
+
+#########################################
+### PROTECTED ROUTES - BOOKS
+#########################################
+
+### Try to create book WITHOUT authentication (should fail with 401)
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "Unauthorized Book",
+  "author": "No Auth",
+  "isbn": "000-000-000",
+  "publishedYear": 2023,
+  "genre": "Fiction",
+  "pages": 100,
+  "language": "English",
+  "publisher": "No Publisher"
+}
+
+###
+
+### Login first, THEN create book (should succeed)
+# Step 1: Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "password": "password123"
+}
+
+###
+
+# Step 2: Create book (after logging in above)
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "isbn": "978-0-7432-7356-5",
+  "publishedYear": 1925,
+  "genre": "Fiction",
+  "pages": 180,
+  "language": "English",
+  "publisher": "Scribner",
+  "description": "A classic American novel"
+}
+
+###
+
+### Get all books (no authentication required)
+GET {{baseUrl}}/books
+
+###
+
+### Get single book (no authentication required)
+GET {{baseUrl}}/books/YOUR_BOOK_ID_HERE
+
+###
+
+### Try to update book WITHOUT authentication (should fail with 401)
+PUT {{baseUrl}}/books/YOUR_BOOK_ID_HERE
+Content-Type: application/json
+
+{
+  "title": "Updated Title",
+  "author": "Updated Author",
+  "isbn": "111-111-111",
+  "publishedYear": 2023,
+  "genre": "Updated Genre",
+  "pages": 200,
+  "language": "English",
+  "publisher": "Updated Publisher"
+}
+
+###
+
+### Update book WITH authentication (login first, then run this)
+PUT {{baseUrl}}/books/YOUR_BOOK_ID_HERE
+Content-Type: application/json
+
+{
+  "title": "The Great Gatsby - Updated",
+  "author": "F. Scott Fitzgerald",
+  "isbn": "978-0-7432-7356-5",
+  "publishedYear": 1925,
+  "genre": "Classic Fiction",
+  "pages": 180,
+  "language": "English",
+  "publisher": "Scribner Updated",
+  "description": "An updated description"
+}
+
+###
+
+### Try to delete book WITHOUT authentication (should fail with 401)
+DELETE {{baseUrl}}/books/YOUR_BOOK_ID_HERE
+
+###
+
+### Delete book WITH authentication (login first, then run this)
+DELETE {{baseUrl}}/books/YOUR_BOOK_ID_HERE
+
+###
+
+#########################################
+### PROTECTED ROUTES - AUTHORS
+#########################################
+
+### Try to create author WITHOUT authentication (should fail with 401)
+POST {{baseUrl}}/authors
+Content-Type: application/json
+
+{
+  "firstName": "Unauthorized",
+  "lastName": "Author",
+  "birthYear": 1980,
+  "country": "USA"
+}
+
+###
+
+### Create author WITH authentication (login first)
+POST {{baseUrl}}/authors
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Austen",
+  "birthYear": 1775,
+  "country": "England",
+  "biography": "English novelist"
+}
+
+###
+
+### Get all authors (no authentication required)
+GET {{baseUrl}}/authors
+
+###
+
+### Update author WITH authentication (login first)
+PUT {{baseUrl}}/authors/YOUR_AUTHOR_ID_HERE
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Austen",
+  "birthYear": 1775,
+  "country": "England",
+  "biography": "Famous English novelist, author of Pride and Prejudice"
+}
+
+###
+
+### Delete author WITH authentication (login first)
+DELETE {{baseUrl}}/authors/YOUR_AUTHOR_ID_HERE
+
+###
+
+#########################################
+### TEST COMPLETE AUTHENTICATION FLOW
+#########################################
+
+### STEP 1: Register new user
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "testuser123",
+  "email": "test123@example.com",
+  "password": "secure password"
+}
+
+###
+
+### STEP 2: Verify user is logged in
+GET {{baseUrl}}/auth/user
+
+###
+
+### STEP 3: Create a book (should work - user is authenticated)
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "1984",
+  "author": "George Orwell",
+  "isbn": "978-0-452-28423-4",
+  "publishedYear": 1949,
+  "genre": "Dystopian",
+  "pages": 328,
+  "language": "English",
+  "publisher": "Secker & Warburg",
+  "description": "A dystopian social science fiction novel"
+}
+
+###
+
+### STEP 4: Logout
+POST {{baseUrl}}/auth/logout
+
+###
+
+### STEP 5: Try to create another book (should fail - not authenticated)
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "Animal Farm",
+  "author": "George Orwell",
+  "isbn": "978-0-452-28424-1",
+  "publishedYear": 1945,
+  "genre": "Political Satire",
+  "pages": 112,
+  "language": "English",
+  "publisher": "Secker & Warburg"
+}
+
+###
+
+### STEP 6: Login again
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "testuser123",
+  "password": "securepassword"
+}
+
+###
+
+### STEP 7: Now create the book (should work again)
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "Animal Farm",
+  "author": "George Orwell",
+  "isbn": "978-0-452-28424-1",
+  "publishedYear": 1945,
+  "genre": "Political Satire",
+  "pages": 112,
+  "language": "English",
+  "publisher": "Secker & Warburg",
+  "description": "A political satire"
+}
+
+###

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bookController = require('../controllers/bookController');
+const { isAuthenticated } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -128,8 +129,10 @@ router.get('/:id', bookController.getBookById);
  *         description: Validation error
  *       500:
  *         description: Server error
+ *     security:
+ *       - sessionAuth: []
  */
-router.post('/', bookController.createBook);
+router.post('/', isAuthenticated, bookController.createBook);
 
 /**
  * @swagger
@@ -159,8 +162,10 @@ router.post('/', bookController.createBook);
  *         description: Book not found
  *       500:
  *         description: Server error
+ *     security:
+ *       - sessionAuth: []
  */
-router.put('/:id', bookController.updateBook);
+router.put('/:id', isAuthenticated, bookController.updateBook);
 
 /**
  * @swagger
@@ -184,7 +189,9 @@ router.put('/:id', bookController.updateBook);
  *         description: Book not found
  *       500:
  *         description: Server error
+ *     security:
+ *       - sessionAuth: []
  */
-router.delete('/:id', bookController.deleteBook);
+router.delete('/:id', isAuthenticated, bookController.deleteBook);
 
 module.exports = router;

@@ -124,8 +124,6 @@ DELETE http://localhost:3000/books/{id}
 - [ ] **YOU NEED TO:** Add your MongoDB connection string to `.env`
 - [ ] **YOU NEED TO:** Test all endpoints
 - [ ] **YOU NEED TO:** Deploy to Render
-- [ ] **YOU NEED TO:** Create demonstration video
-- [ ] **YOU NEED TO:** Submit to Canvas
 
 ---
 
@@ -137,8 +135,6 @@ DELETE http://localhost:3000/books/{id}
 4. **Use `routes.rest`** - Test all endpoints (install REST Client extension)
 5. **Check MongoDB Compass** - Verify data is being saved
 6. **Read `DEPLOYMENT.md`** - Deploy to Render when ready
-7. **Record video** - Demonstrate all features
-8. **Submit to Canvas** - GitHub, Render, and YouTube links
 
 ---
 
